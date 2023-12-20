@@ -5,7 +5,6 @@ import pytest
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import matplotlib.tri as tri
 
 class TestDatetimePlotting:
     @mpl.style.context("default")
@@ -809,7 +808,6 @@ class TestDatetimePlotting:
     def test_tricontour(self):
  
         # make unequailly distributed data points:
-
         dates = np.arange(np.datetime64('2022-01-01'), np.datetime64('2022-12-28'),
                          np.timedelta64(1,'D'))
         n = len(dates)
@@ -823,9 +821,7 @@ class TestDatetimePlotting:
         levels = np.linspace(z.min(), z.max(), 5)
         dates_x = dates[indx]
         dates_y = dates[indy]
-        
-        # plot:
-        fig, (ax0, ax1, ax2) = plt.subplots(1,3, figsize=(20, 5))
+        fig, (ax0, ax1, ax2) = plt.subplots(1,3, figsize=(20, 5), layout='constrained')
         # dates on y axis
         ax0.plot(x, dates_y, 'o', markersize=2, color='lightgrey')
         ax0.tricontour(x, dates_y, z, levels=levels)
@@ -838,9 +834,6 @@ class TestDatetimePlotting:
         ax2.plot(dates_x, dates_y, 'o', markersize=2, color='lightgrey')
         ax2.tricontour(dates_x, dates_y, z, levels=levels)
         ax2.tick_params(labelrotation=45)
-
-        fig.tight_layout()
-        plt.show()
 
     @pytest.mark.xfail(reason="Test for tricontourf not written yet")
     @mpl.style.context("default")
